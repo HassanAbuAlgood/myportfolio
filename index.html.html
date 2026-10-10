@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Hassan Ashraf Abu-Algood — Web Penetration Tester &amp; Bug Bounty Hunter</title>
+<meta name="description" content="Hassan Ashraf Abu-Algood — cybersecurity professional specializing in web application penetration testing (OWASP Top 10) with active bug bounty practice on HackerOne. Cairo, Egypt."/>
+<meta name="author" content="Hassan Ashraf Abu-Algood"/>
+<meta name="theme-color" content="#0A0E0C"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Hassan Ashraf Abu-Algood — Web Penetration Tester &amp; Bug Bounty Hunter"/>
+<meta property="og:description" content="Web application penetration testing (OWASP Top 10), active bug bounty on HackerOne, and security training delivered to 200+ university students."/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230A0E0C'/%3E%3Ctext x='30' y='43' font-family='monospace' font-size='30' fill='%2363E68F' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Hassan Ashraf Abu-Algood",
+  "jobTitle": "Cybersecurity Professional — Web Penetration Tester",
+  "email": "mailto:hassanashrafaboelgood@gmail.com",
+  "telephone": "01117735954",
+  "address": { "@type": "PostalAddress", "addressLocality": "Cairo", "addressCountry": "EG" },
+  "sameAs": ["https://www.linkedin.com/in/hassan-ashraf-abu-algood"],
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Helwan University" },
+  "knowsAbout": ["Web Application Penetration Testing","OWASP Top 10","SQL Injection","XSS","IDOR","Authentication Bypass","Bug Bounty","Network Security","Security Training"]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script defer src="https://unpkg.com/lucide@latest"></script>
+<style>
+/* ===== أساسيات ===== */
+:root{
+  --bg:#0A0E0C; --surface:#0F1512; --surface2:#141B17;
+  --line:#1D2721; --line2:#2A382F;
+  --text:#E7EFE9; --muted:#94A79B; --faint:#7C8F84;
+  --accent:#63E68F; --accent-ink:#06130B; --amber:#E9B44C;
+  --sans:'Space Grotesk','Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:clip}
+/* شبكة هندسية خافتة — طبقة واحدة ثابتة، بدون أي تدرجات */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(rgba(148,167,155,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(148,167,155,.05) 1px,transparent 1px);
+  background-size:44px 44px}
+::selection{background:var(--accent);color:var(--accent-ink)}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.container{max-width:1120px;margin-inline:auto;padding-inline:clamp(20px,5vw,44px)}
+section{padding-block:clamp(72px,9vw,116px);scroll-margin-top:76px}
+.mono{font-family:var(--mono)}
+.icon{width:18px;height:18px}
+h2{font-size:clamp(1.7rem,3.2vw,2.35rem);letter-spacing:-.015em;line-height:1.15;font-weight:700;margin-top:10px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.skip{position:fixed;top:-70px;left:16px;z-index:100;background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:8px;font-weight:600;transition:top .2s}
+.skip:focus{top:12px}
+
+/* ===== أنيميشن الظهور عند السكرول ===== */
+.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .65s cubic-bezier(.22,.61,.36,1),transform .65s cubic-bezier(.22,.61,.36,1)}
+.js .reveal.in{opacity:1;transform:none}
+
+/* ===== الهيدر والقائمة ===== */
+.site-head{position:fixed;inset:0 0 auto;z-index:50;background:rgba(10,14,12,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.head-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-family:var(--mono);font-size:14px}
+.bcur{display:inline-block;width:8px;height:15px;background:var(--accent);margin-left:6px;vertical-align:-2px;animation:blink 1.1s steps(1) infinite}
+.nav{display:flex;gap:4px;align-items:center}
+.nav a{font-family:var(--mono);font-size:13px;color:var(--muted);padding:8px 12px;border-radius:7px;transition:color .2s,background .2s,border-color .2s}
+.nav a:hover{color:var(--text);background:var(--surface2)}
+.nav a.active{color:var(--accent)}
+.nav a.nav-cta{border:1px solid var(--line2);color:var(--text)}
+.nav a.nav-cta:hover{border-color:var(--accent);color:var(--accent)}
+.nav-btn{display:none;background:none;border:1px solid var(--line2);color:var(--text);width:40px;height:40px;border-radius:8px;place-items:center;cursor:pointer}
+.ic-close{display:none}
+.site-head.open .ic-open{display:none}
+.site-head.open .ic-close{display:block}
+@media(max-width:860px){
+  .nav-btn{display:grid}
+  .nav{position:fixed;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:2px;
+    background:rgba(10,14,12,.97);border-bottom:1px solid var(--line);padding:14px 20px 20px;
+    opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .25s,transform .25s}
+  .site-head.open .nav{opacity:1;transform:none;pointer-events:auto}
+  .nav a{padding:12px 14px}
+}
+
+/* ===== الهيرو ===== */
+.hero{padding-top:clamp(130px,17vh,175px)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,64px);align-items:center}
+.status{display:inline-flex;align-items:center;gap:9px;font-size:12px;color:var(--accent);border:1px solid var(--line2);padding:6px 13px;border-radius:999px;background:var(--surface)}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(99,230,143,.45)}70%{box-shadow:0 0 0 8px rgba(99,230,143,0)}100%{box-shadow:0 0 0 0 rgba(99,230,143,0)}}
+.hero .kicker{margin:20px 0 10px}
+h1{font-size:clamp(2.4rem,5.4vw,3.9rem);line-height:1.04;letter-spacing:-.02em;font-weight:700}
+.lede{margin-top:18px;color:var(--muted);max-width:56ch;font-size:clamp(1rem,1.4vw,1.1rem)}
+.lede strong{color:var(--text);font-weight:600}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.hero-chips span{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:6px 11px;border-radius:7px;background:var(--surface)}
+.hero-cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13.5px;padding:12px 20px;border-radius:9px;border:1px solid transparent;cursor:pointer;transition:transform .15s,border-color .2s,color .2s,background .2s}
+.btn-solid{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn-solid:hover{transform:translateY(-2px)}
+.btn-ghost{border-color:var(--line2);color:var(--text)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+
+/* الترمينال — اللقطة المميزة في أول شاشة */
+.term{background:#0C120F;border:1px solid var(--line2);border-radius:14px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.5)}
+.term-bar{display:flex;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+.term-body{padding:18px 20px 22px;font-family:var(--mono);font-size:13px;line-height:2.05;color:#B8C9BE}
+.tl{white-space:pre-wrap}
+.pr{color:var(--accent);font-weight:600}
+.hl{color:var(--text);font-weight:600}
+.ok{color:var(--accent)}
+.cursor{display:inline-block;width:9px;height:16px;background:var(--accent);vertical-align:-3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.js .tl{opacity:0;animation:tlin .45s ease forwards}
+.js .tl:nth-of-type(1){animation-delay:.1s}.js .tl:nth-of-type(2){animation-delay:.24s}
+.js .tl:nth-of-type(3){animation-delay:.38s}.js .tl:nth-of-type(4){animation-delay:.52s}
+.js .tl:nth-of-type(5){animation-delay:.66s}.js .tl:nth-of-type(6){animation-delay:.8s}
+.js .tl:nth-of-type(7){animation-delay:.94s}.js .tl:nth-of-type(8){animation-delay:1.08s}
+.js .tl:nth-of-type(9){animation-delay:1.22s}.js .tl:nth-of-type(10){animation-delay:1.36s}
+.js .tl:nth-of-type(11){animation-delay:1.5s}
+@keyframes tlin{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
+
+/* شريط الحقائق السريع — للمسح في 30 ثانية */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:clamp(48px,7vw,72px);background:var(--surface)}
+.fact{padding:22px 24px;border-left:1px solid var(--line)}
+.fact:first-child{border-left:0}
+.fact-v{display:block;font-weight:600;font-size:clamp(1.02rem,1.6vw,1.22rem);letter-spacing:-.01em}
+.fact-l{display:block;margin-top:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+@media(max-width:760px){
+  .facts{grid-template-columns:1fr 1fr}
+  .fact:nth-child(3){border-left:0;border-top:1px solid var(--line)}
+  .fact:nth-child(4){border-top:1px solid var(--line)}
+}
+@media(max-width:920px){.hero-grid{grid-template-columns:1fr}}
+
+/* ===== About + تقرير الـ Recon ===== */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,56px);margin-top:clamp(36px,5vw,56px);align-items:start}
+.about-copy p{color:var(--muted);margin-bottom:16px;max-width:62ch}
+.about-copy strong{color:var(--text);font-weight:600}
+.about-copy .meta{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.06em}
+@media(max-width:920px){.about-grid{grid-template-columns:1fr}}
+.findings{border:1px solid var(--line2);border-radius:14px;background:var(--surface);overflow:hidden}
+.find-head{display:flex;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.find-list li{display:flex;gap:14px;padding:15px 18px;border-bottom:1px solid var(--line);transition:background .2s}
+.find-list li:last-child{border-bottom:0}
+.find-list li:hover{background:var(--surface2)}
+.tag{flex:none;height:fit-content;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px;border-radius:5px;border:1px solid}
+.t-green{color:var(--accent);border-color:rgba(99,230,143,.35);background:rgba(99,230,143,.07)}
+.t-amber{color:var(--amber);border-color:rgba(233,180,76,.35);background:rgba(233,180,76,.07)}
+.find-list strong{display:block;font-size:.95rem;font-weight:600}
+.find-list p{font-size:.85rem;color:var(--muted);margin-top:3px}
+
+/* ===== المهارات — شبكة غير متساوية ===== */
+.skills-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:clamp(36px,5vw,56px)}
+.panel{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:clamp(20px,3vw,28px);transition:border-color .25s,transform .25s}
+.panel:hover{border-color:rgba(99,230,143,.35);transform:translateY(-2px)}
+.span7{grid-column:span 7}.span5{grid-column:span 5}.span12{grid-column:span 12}
+@media(max-width:860px){.span7,.span5{grid-column:span 12}}
+.panel-t{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+.panel-t .icon{width:16px;height:16px}
+.list-two{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+@media(max-width:520px){.list-two{grid-template-columns:1fr}}
+.list-two li{position:relative;padding-left:18px;color:var(--muted);font-size:.95rem}
+.list-two li::before{content:"▸";position:absolute;left:0;top:2px;color:var(--accent);font-size:.8rem}
+.steps{display:grid;gap:11px}
+.steps li{display:flex;gap:14px;align-items:baseline;color:var(--muted);font-size:.95rem}
+.steps li b{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent);border:1px solid var(--line2);border-radius:5px;padding:2px 7px}
+.panel-note{margin-top:16px;font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.08em}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{font-family:var(--mono);font-size:12.5px;color:var(--muted);border:1px solid var(--line);background:var(--surface2);padding:7px 13px;border-radius:7px;transition:color .2s,border-color .2s,transform .2s;cursor:default}
+.chip:hover{color:var(--accent);border-color:rgba(99,230,143,.4);transform:translateY(-2px)}
+.list-plain{display:grid;gap:9px}
+.list-plain li{position:relative;padding-left:18px;color:var(--muted);font-size:.95rem}
+.list-plain li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;background:var(--accent);opacity:.75}
+
+/* ===== الخبرة ===== */
+.xp-wrap{margin-top:clamp(36px,5vw,56px);display:grid;gap:14px;max-width:880px}
+.xp{border:1px solid var(--line);border-left:2px solid var(--line2);background:var(--surface);border-radius:12px;padding:clamp(20px,3vw,28px);transition:border-color .25s}
+.xp:hover{border-left-color:var(--accent)}
+.xp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.xp h3{font-size:1.15rem;font-weight:600;letter-spacing:-.01em}
+.xp-org{font-family:var(--mono);font-size:12.5px;color:var(--accent);margin-top:3px;letter-spacing:.04em}
+.xp-date{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;color:var(--faint);border:1px solid var(--line);padding:6px 13px;border-radius:999px}
+.xp ul{display:grid;gap:8px}
+.xp li{position:relative;padding-left:20px;color:var(--muted);font-size:.95rem}
+.xp li::before{content:"▸";position:absolute;left:0;top:2px;color:var(--accent);font-size:.8rem}
+
+/* ===== المسار — خط زمني بعُقد معيّنة ===== */
+.path{margin-top:clamp(40px,6vw,64px);position:relative;max-width:780px}
+.path::before{content:"";position:absolute;left:17px;top:8px;bottom:14px;width:1px;background:var(--line2)}
+.path li{position:relative;padding:0 0 clamp(36px,5vw,52px) 62px}
+.path li:last-child{padding-bottom:0}
+.node{position:absolute;left:0;top:0;width:35px;height:35px;display:grid;place-items:center;border:1px solid var(--line2);background:var(--bg);transform:rotate(45deg);border-radius:8px;transition:border-color .25s}
+.node b{transform:rotate(-45deg);font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent)}
+.path li:hover .node{border-color:var(--accent)}
+.path h3{font-size:1.1rem;font-weight:600}
+.path .meta{font-family:var(--mono);font-size:11.5px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin:4px 0 8px}
+.path p{color:var(--muted);font-size:.95rem;max-width:58ch}
+
+/* ===== الشهادات والممارسة ===== */
+.cred-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:clamp(36px,5vw,56px)}
+@media(max-width:860px){.cred-grid{grid-template-columns:1fr}}
+.certs li,.plist li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:.93rem}
+.certs li:last-child,.plist li:last-child{border-bottom:0}
+.iss{font-family:var(--mono);font-size:11px;color:var(--faint);text-align:right;flex:none}
+.badge{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(233,180,76,.35);background:rgba(233,180,76,.07);border-radius:5px;padding:3px 8px;flex:none}
+.comp{display:flex;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.comp:last-child{border-bottom:0}
+.comp .icon{color:var(--amber);flex:none;margin-top:3px}
+.comp strong{display:block;font-size:1rem}
+.comp .team{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.06em}
+.comp p{color:var(--muted);font-size:.88rem;margin-top:2px}
+
+/* ===== تواصل ===== */
+.lead{color:var(--muted);max-width:60ch;margin-top:14px;font-size:1.05rem}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);margin-top:clamp(36px,5vw,56px);align-items:start}
+@media(max-width:860px){.contact-grid{grid-template-columns:1fr}}
+.channels{display:grid;gap:12px}
+.channel{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:14px 16px;transition:border-color .2s,transform .2s}
+.channel:hover{border-color:rgba(99,230,143,.4);transform:translateY(-2px)}
+.ch-main{display:flex;align-items:center;gap:14px;flex:1;min-width:0}
+.channel .icon{color:var(--accent);flex:none}
+.channel strong{display:block;font-size:.95rem}
+.channel .val{display:block;font-family:var(--mono);font-size:12px;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ext{color:var(--faint)}
+.copy-btn{flex:none;background:var(--surface2);border:1px solid var(--line2);color:var(--muted);width:36px;height:36px;border-radius:8px;display:grid;place-items:center;cursor:pointer;transition:color .2s,border-color .2s}
+.copy-btn:hover{color:var(--accent);border-color:var(--accent)}
+.is-placeholder{border-style:dashed}
+.is-placeholder .val{color:var(--amber)}
+.cform{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:clamp(20px,3vw,30px)}
+.cform h3{font-size:1.05rem;margin-bottom:16px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:520px){.frow{grid-template-columns:1fr}}
+.cform label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+.cform input,.cform textarea{width:100%;margin-top:7px;background:var(--bg);border:1px solid var(--line2);border-radius:8px;padding:11px 13px;color:var(--text);font-family:var(--sans);font-size:.95rem;transition:border-color .2s}
+.cform input:focus,.cform textarea:focus{outline:none;border-color:var(--accent)}
+.cform textarea{resize:vertical;min-height:120px}
+.form-note{margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--faint)}
+
+/* ===== فوتر + توست ===== */
+footer{border-top:1px solid var(--line);padding:26px 0}
+.foot-in{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--faint)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,16px);background:var(--surface2);border:1px solid var(--accent);color:var(--text);padding:11px 18px;border-radius:9px;font-family:var(--mono);font-size:12.5px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:60;max-width:calc(100vw - 40px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* احترام تقليل الحركة */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .reveal,.js .tl{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head" id="top">
+  <div class="container head-in">
+    <a class="brand" href="#top">&gt; hassan_ashraf<span class="bcur" aria-hidden="true"></span></a>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#path">Path</a>
+      <a href="#credentials">Credentials</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </nav>
+    <button class="nav-btn" id="navBtn" aria-expanded="false" aria-controls="nav" aria-label="Toggle menu">
+      <i data-lucide="menu" class="icon ic-open" aria-hidden="true"></i>
+      <i data-lucide="x" class="icon ic-close" aria-hidden="true"></i>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO — أول 30 ثانية بتاعت الـ recruiter ============ -->
+<section class="hero" aria-label="Introduction">
+  <div class="container hero-grid">
+    <div>
+      <p class="status reveal"><span class="pulse" aria-hidden="true"></span>Open to pentesting &amp; security training roles</p>
+      <p class="kicker reveal">// Web Penetration Tester · Bug Bounty Hunter</p>
+      <h1 class="reveal">Hassan Ashraf Abu-Algood</h1>
+      <p class="lede reveal">Cybersecurity professional specializing in <strong>web application penetration testing</strong> — OWASP Top 10, SQLi, XSS, IDOR, authentication bypass — with <strong>active bug bounty practice on HackerOne</strong>, a strong networking foundation, and security training delivered to 200+ university students.</p>
+      <div class="hero-chips reveal">
+        <span>eJPT v2</span><span>CompTIA Security+</span><span>CCNA</span><span>HackViser CORE</span>
+      </div>
+      <div class="hero-cta reveal">
+        <a class="btn btn-solid" href="#contact"><i data-lucide="mail" class="icon" aria-hidden="true"></i>Get in touch</a>
+        <a class="btn btn-ghost" href="#experience">View experience<i data-lucide="arrow-down" class="icon" aria-hidden="true"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="term" aria-label="Terminal summary">
+        <div class="term-bar"><span>recon — hassan-ashraf.local</span><span>bash</span></div>
+        <div class="term-body">
+          <p class="tl"><span class="pr">$</span> whoami</p>
+          <p class="tl"><span class="hl">Hassan Ashraf Abu-Algood</span> — Cairo, Egypt</p>
+          <p class="tl"><span class="pr">$</span> cat focus.txt</p>
+          <p class="tl">web app penetration testing · OWASP Top 10</p>
+          <p class="tl">bug bounty — HackerOne <span class="ok">[active]</span></p>
+          <p class="tl">security training &amp; instruction</p>
+          <p class="tl"><span class="pr">$</span> ls certifications/</p>
+          <p class="tl">eJPT-v2  Security+  CCNA  HackViser-CORE</p>
+          <p class="tl"><span class="pr">$</span> open_to --roles</p>
+          <p class="tl">penetration testing · cybersecurity training</p>
+          <p class="tl"><span class="pr">$</span> <span class="cursor" aria-hidden="true"></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="facts stagger">
+      <div class="fact reveal"><span class="fact-v">OWASP Top 10</span><span class="fact-l">web pentesting focus</span></div>
+      <div class="fact reveal"><span class="fact-v">HackerOne</span><span class="fact-l">active bug bounty</span></div>
+      <div class="fact reveal"><span class="fact-v">200+ students</span><span class="fact-l">trained · NTI × Fortinet</span></div>
+      <div class="fact reveal"><span class="fact-v">eJPT · Sec+ · CCNA</span><span class="fact-l">certified fundamentals</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="container">
+    <p class="kicker reveal">01 // About</p>
+    <h2 class="reveal">Offensive by focus, structured by teaching.</h2>
+    <div class="about-grid">
+      <div class="about-copy stagger">
+        <p class="reveal">I'm a cybersecurity professional focused on <strong>web application penetration testing</strong> — SQL injection, XSS, IDOR, authentication bypass, and the OWASP Top 10 broadly — with active bug bounty practice on HackerOne, from scoping and recon to vulnerability reporting.</p>
+        <p class="reveal">My foundation is a <strong>B.Sc. in Educational Technology and Information</strong> (Helwan University, 2025) and networking-first security fundamentals — CCNA and CompTIA Security+ — before specializing in offensive security through eJPT and continuous hands-on labs on PortSwigger, TryHackMe, and HackTheBox.</p>
+        <p class="reveal">Teaching is my second edge: I've delivered the <strong>NTI × Fortinet program to 200+ university students</strong> and a dedicated web pentesting track to 80 more. Explaining a vulnerability clearly is how I test how well I truly know it. I'm currently extending into defensive ground — HCIA-Security, SOC fundamentals, and a SIEM Engineer track.</p>
+        <p class="meta reveal">languages: AR — native · EN — professional working proficiency</p>
+      </div>
+      <aside class="findings reveal" aria-label="Key strengths summary">
+        <div class="find-head"><span>recon report</span><span>target: hassan-a</span></div>
+        <ul class="find-list stagger">
+          <li class="reveal"><span class="tag t-green">core</span><div><strong>Web application penetration testing</strong><p>OWASP Top 10 applied across labs, internship work, and live targets.</p></div></li>
+          <li class="reveal"><span class="tag t-green">active</span><div><strong>Bug bounty — HackerOne</strong><p>Scoping, recon, and vulnerability reporting on real programs.</p></div></li>
+          <li class="reveal"><span class="tag t-amber">proven</span><div><strong>Training delivery at scale</strong><p>200+ students (NTI × Fortinet) plus a pentesting track for 80.</p></div></li>
+          <li class="reveal"><span class="tag t-green">competitive</span><div><strong>CTF record</strong><p>2nd place — Black Hat CTF · 14th nationally — EG-CERT CTF final.</p></div></li>
+          <li class="reveal"><span class="tag t-amber">growing</span><div><strong>Defensive fundamentals</strong><p>SIEM Engineer track and SOC Fundamentals currently in progress.</p></div></li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="container">
+    <p class="kicker reveal">02 // Capabilities</p>
+    <h2 class="reveal">What I work with</h2>
+    <div class="skills-grid stagger">
+      <div class="panel span7 reveal">
+        <h3 class="panel-t"><i data-lucide="crosshair" aria-hidden="true"></i>Penetration testing</h3>
+        <ul class="list-two">
+          <li>Web application pentesting</li>
+          <li>OWASP Top 10</li>
+          <li>SQL injection (SQLi)</li>
+          <li>Cross-site scripting (XSS)</li>
+          <li>IDOR</li>
+          <li>Authentication bypass</li>
+          <li>Active Directory attacks</li>
+        </ul>
+      </div>
+      <div class="panel span5 reveal">
+        <h3 class="panel-t"><i data-lucide="bug" aria-hidden="true"></i>Bug bounty workflow</h3>
+        <ol class="steps">
+          <li><b>01</b> Scoping programs &amp; assets</li>
+          <li><b>02</b> Recon &amp; attack-surface mapping</li>
+          <li><b>03</b> Testing &amp; exploitation</li>
+          <li><b>04</b> Vulnerability reporting</li>
+        </ol>
+        <p class="panel-note">platform: HackerOne — active</p>
+      </div>
+      <div class="panel span12 reveal">
+        <h3 class="panel-t"><i data-lucide="wrench" aria-hidden="true"></i>Security toolbox</h3>
+        <div class="chips">
+          <span class="chip">Burp Suite</span><span class="chip">OWASP ZAP</span><span class="chip">Nmap</span><span class="chip">Wireshark</span><span class="chip">Nessus</span><span class="chip">Metasploit</span><span class="chip">Hydra</span><span class="chip">Netcat</span><span class="chip">Feroxbuster</span><span class="chip">FFuf</span><span class="chip">Gobuster</span><span class="chip">SecLists</span>
+        </div>
+      </div>
+      <div class="panel span5 reveal">
+        <h3 class="panel-t"><i data-lucide="terminal" aria-hidden="true"></i>Operating systems</h3>
+        <ul class="list-plain">
+          <li>Linux — Ubuntu &amp; Kali</li>
+          <li>Windows</li>
+          <li>WSL</li>
+        </ul>
+      </div>
+      <div class="panel span7 reveal">
+        <h3 class="panel-t"><i data-lucide="code" aria-hidden="true"></i>Programming</h3>
+        <div class="chips">
+          <span class="chip">JavaScript</span><span class="chip">Bash scripting</span><span class="chip">C++</span><span class="chip">Dart</span><span class="chip">Flutter</span><span class="chip">HTML</span><span class="chip">CSS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience">
+  <div class="container">
+    <p class="kicker reveal">03 // Experience</p>
+    <h2 class="reveal">Where I've applied it</h2>
+    <div class="xp-wrap stagger">
+      <article class="xp reveal">
+        <header class="xp-head">
+          <div><h3>Security Intern</h3><p class="xp-org">Decodelabs</p></div>
+          <span class="xp-date"><span class="pulse" aria-hidden="true"></span>2025 — Present</span>
+        </header>
+        <ul>
+          <li>Perform web application security assessments and vulnerability analysis on live targets.</li>
+          <li>Apply penetration testing methodologies aligned with OWASP standards.</li>
+          <li>Hands-on exposure to enterprise security tools and incident response workflows.</li>
+        </ul>
+      </article>
+      <article class="xp reveal">
+        <header class="xp-head">
+          <div><h3>Cybersecurity Instructor — Penetration Testing Track</h3><p class="xp-org">NTI — National Telecommunication Institute</p></div>
+          <span class="xp-date">Aug — Sep 2026</span>
+        </header>
+        <ul>
+          <li>Delivered a web penetration testing track to 80 university students across two groups.</li>
+          <li>Taught OWASP Top 10 vulnerabilities (SQLi, XSS, IDOR), vulnerability assessment methodology, and cloud security fundamentals.</li>
+          <li>Covered phishing &amp; social engineering, log and event analysis, and Linux fundamentals.</li>
+          <li>Guided hands-on labs with Burp Suite, SQLMap, and OWASP ZAP; supervised PortSwigger Academy labs, vulnerability write-ups, and final capstone projects.</li>
+        </ul>
+      </article>
+      <article class="xp reveal">
+        <header class="xp-head">
+          <div><h3>Cybersecurity Instructor</h3><p class="xp-org">NTI × Fortinet</p></div>
+          <span class="xp-date">Jul — Aug 2026</span>
+        </header>
+        <ul>
+          <li>Delivered structured cybersecurity training to 200+ university-level students across multiple sessions.</li>
+          <li>Designed and taught curriculum covering CCNA-aligned networking fundamentals, core cybersecurity concepts, social engineering &amp; phishing awareness, and Linux fundamentals.</li>
+          <li>Led hands-on practical labs, translating theoretical security concepts into applied, guided exercises.</li>
+          <li>Built on prior training experience with the NTI Cybersecurity Superhero Academy.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PATH ============ -->
+<section id="path">
+  <div class="container">
+    <p class="kicker reveal">04 // Path</p>
+    <h2 class="reveal">How I got here</h2>
+    <ol class="path stagger">
+      <li class="reveal">
+        <span class="node" aria-hidden="true"><b>01</b></span>
+        <h3>B.Sc. — Educational Technology &amp; Information</h3>
+        <p class="meta">Helwan University · 2025</p>
+        <p>Instructional design, information systems, and technology-enhanced learning — the base for how I structure, document, and explain security work.</p>
+      </li>
+      <li class="reveal">
+        <span class="node" aria-hidden="true"><b>02</b></span>
+        <h3>Networking &amp; security fundamentals</h3>
+        <p class="meta">CCNA · CompTIA Security+ (SY0-701) · ITI · NetRiders</p>
+        <p>Built the networking layer first, then layered core security concepts on top of it — the way offensive work should be learned.</p>
+      </li>
+      <li class="reveal">
+        <span class="node" aria-hidden="true"><b>03</b></span>
+        <h3>Offensive security specialization</h3>
+        <p class="meta">eJPT v1 &amp; v2 · HackViser CORE · Mahara Tech</p>
+        <p>Junior pentester certification plus continuous lab practice: PortSwigger Web Security Academy, TryHackMe, and HackTheBox.</p>
+      </li>
+      <li class="reveal">
+        <span class="node" aria-hidden="true"><b>04</b></span>
+        <h3>Teaching at scale</h3>
+        <p class="meta">NTI × Fortinet · NTI Pentesting Track</p>
+        <p>200+ university students trained; an 80-student web pentesting track with Burp Suite, SQLMap, and OWASP ZAP labs and capstone projects.</p>
+      </li>
+      <li class="reveal">
+        <span class="node" aria-hidden="true"><b>05</b></span>
+        <h3>Professional practice</h3>
+        <p class="meta">Decodelabs · 2025 — Present</p>
+        <p>Web application security assessments on live targets, OWASP-aligned methodology, and exposure to incident response workflows.</p>
+      </li>
+      <li class="reveal">
+        <span class="node" aria-hidden="true"><b>06</b></span>
+        <h3>Bug bounty &amp; CTFs</h3>
+        <p class="meta">HackerOne · EG-CERT CTF · Black Hat CTF</p>
+        <p>Active HackerOne practice; 4th in the EG-CERT qualifying round and 14th nationally in the final (team "xmanga"); 2nd place at Black Hat CTF (team "Majek7x").</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ CREDENTIALS ============ -->
+<section id="credentials">
+  <div class="container">
+    <p class="kicker reveal">05 // Credentials</p>
+    <h2 class="reveal">Certifications &amp; proof of work</h2>
+    <div class="cred-grid stagger">
+      <div class="panel reveal">
+        <h3 class="panel-t"><i data-lucide="award" aria-hidden="true"></i>Completed</h3>
+        <ul class="certs">
+          <li><span>HackViser CORE</span><span class="iss">HackViser</span></li>
+          <li><span>eJPT v1 &amp; v2 — Junior Penetration Tester</span><span class="iss">INE / NetRaiders · Udemy / RedNexus</span></li>
+          <li><span>Security &amp; Networking</span><span class="iss">ITI</span></li>
+          <li><span>Cybersecurity</span><span class="iss">Mahara Tech</span></li>
+          <li><span>Cybersecurity Superhero Academy</span><span class="iss">NTI</span></li>
+          <li><span>Network Security Fundamentals</span><span class="iss">NetRiders</span></li>
+          <li><span>CompTIA Security+ (SY0-701)</span><span class="iss">CompTIA</span></li>
+          <li><span>CCNA Networking Fundamentals</span><span class="iss">—</span></li>
+        </ul>
+      </div>
+      <div class="panel reveal">
+        <h3 class="panel-t"><i data-lucide="hourglass" aria-hidden="true"></i>In progress</h3>
+        <ul class="certs">
+          <li><span>HCIA-Security</span><span class="badge">Huawei</span></li>
+          <li><span>SOC Fundamentals</span><span class="badge">Let's Defend · ~70%</span></li>
+          <li><span>SIEM Engineer track</span><span class="badge">recently started</span></li>
+        </ul>
+        <h3 class="panel-t" style="margin-top:26px"><i data-lucide="target" aria-hidden="true"></i>Ongoing practice</h3>
+        <ul class="plist">
+          <li><span>PortSwigger Web Security Academy</span><span class="iss">SQLi · XSS · Auth · Info Disclosure</span></li>
+          <li><span>TryHackMe</span><span class="iss">Fundamentals · HTTP · rooms</span></li>
+          <li><span>HackTheBox</span><span class="iss">offensive security labs</span></li>
+          <li><span>EG-CERT Training &amp; Awareness</span><span class="iss">participant</span></li>
+        </ul>
+      </div>
+      <div class="panel reveal" style="grid-column:1/-1">
+        <h3 class="panel-t"><i data-lucide="trophy" aria-hidden="true"></i>Competition record</h3>
+        <div class="comp">
+          <i data-lucide="trophy" class="icon" aria-hidden="true"></i>
+          <div>
+            <strong>2nd place — Black Hat CTF</strong>
+            <span class="team">team: Majek7x</span>
+            <p>Ranked 2nd in the competition.</p>
+          </div>
+        </div>
+        <div class="comp">
+          <i data-lucide="medal" class="icon" aria-hidden="true"></i>
+          <div>
+            <strong>4th in qualifying · 14th nationally — EG-CERT CTF</strong>
+            <span class="team">team: xmanga</span>
+            <p>Ranked 4th in the qualifying round, then 14th nationally in the final round.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="container">
+    <p class="kicker reveal">06 // Contact</p>
+    <h2 class="reveal">Let's Connect</h2>
+    <p class="lead reveal">Interested in web penetration testing, bug bounty, or cybersecurity training opportunities? Feel free to connect with me.</p>
+    <div class="contact-grid">
+      <div class="channels stagger">
+        <div class="channel reveal">
+          <a class="ch-main" href="mailto:hassanashrafaboelgood@gmail.com">
+            <i data-lucide="mail" class="icon" aria-hidden="true"></i>
+            <span><strong>Email</strong><span class="val">hassanashrafaboelgood@gmail.com</span></span>
+          </a>
+          <button class="copy-btn" data-copy="hassanashrafaboelgood@gmail.com" aria-label="Copy email address"><i data-lucide="copy" class="icon" aria-hidden="true"></i></button>
+        </div>
+        <div class="channel reveal">
+          <a class="ch-main" href="https://www.linkedin.com/in/hassan-ashraf-abu-algood" target="_blank" rel="noopener">
+            <i data-lucide="linkedin" class="icon" aria-hidden="true"></i>
+            <span><strong>LinkedIn</strong><span class="val">hassan-ashraf-abu-algood</span></span>
+          </a>
+          <i data-lucide="arrow-up-right" class="icon ext" aria-hidden="true"></i>
+        </div>
+        <div class="channel reveal">
+          <a class="ch-main" href="tel:01117735954">
+            <i data-lucide="phone" class="icon" aria-hidden="true"></i>
+            <span><strong>Phone</strong><span class="val">0111 773 5954</span></span>
+          </a>
+        </div>
+        <!-- ⚠️ GITHUB-LINK: البلاس هولدر الوحيد في الصفحة — استبدل href="#" برابط حسابك الحقيقي -->
+        <div class="channel is-placeholder reveal">
+          <a class="ch-main" href="#" data-placeholder>
+            <i data-lucide="github" class="icon" aria-hidden="true"></i>
+            <span><strong>GitHub</strong><span class="val">github.com/your-username — set in code</span></span>
+          </a>
+        </div>
+      </div>
+      <form class="cform reveal" id="cform" novalidate>
+        <h3>Send a message</h3>
+        <div class="frow">
+          <label>Name
+            <input type="text" name="name" autocomplete="name" placeholder="Your name"/>
+          </label>
+          <label>Email
+            <input type="email" name="email" autocomplete="email" placeholder="you@company.com"/>
+          </label>
+        </div>
+        <label>Message
+          <textarea name="message" rows="5" placeholder="Role, team, or question — happy to talk."></textarea>
+        </label>
+        <button class="btn btn-solid" type="submit"><i data-lucide="send" class="icon" aria-hidden="true"></i>Send via email</button>
+        <p class="form-note">This form composes an email in your own mail app — nothing is stored or tracked.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container foot-in">
+    <span>&gt;_ single-file portfolio · view-source friendly</span>
+    <span id="year"></span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+// ===== أدوات عامة =====
+let toastTimer;
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3400);
+}
+
+const drawIcons = () => window.lucide && lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+
+window.addEventListener('DOMContentLoaded', () => {
+  drawIcons();
+  window.addEventListener('load', drawIcons);
+
+  // سنة الفوتر
+  document.getElementById('year').textContent = '© ' + new Date().getFullYear() + ' — Hassan Ashraf Abu-Algood · Cairo, EG';
+
+  // قائمة الموبايل
+  const head = document.querySelector('.site-head');
+  const btn  = document.getElementById('navBtn');
+  btn.addEventListener('click', () => {
+    const open = head.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  });
+  document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', () => {
+    head.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }));
+
+  // ظهور العناصر عند السكرول + تتابع داخل المجموعات
+  document.querySelectorAll('.stagger').forEach(g =>
+    [...g.children].forEach((c, i) => c.style.transitionDelay = Math.min(i * 70, 350) + 'ms')
+  );
+  const io = new IntersectionObserver(entries => {
+    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // تتبع القسم النشط في النافبار
+  const links = [...document.querySelectorAll('.nav a[href^="#"]')];
+  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const spy = new IntersectionObserver(es => es.forEach(e => {
+    const l = map.get(e.target.id);
+    if (l && e.isIntersecting) { links.forEach(x => x.classList.remove('active')); l.classList.add('active'); }
+  }), { rootMargin: '-40% 0px -55% 0px' });
+  map.forEach((_, id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
+
+  // بلاس هولدر GitHub — يظهر رسالة بدل ما يفتح لينك ميت
+  document.querySelectorAll('[data-placeholder]').forEach(el =>
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      toast('GitHub link not set yet — add your profile URL in index.html (search: GITHUB-LINK).');
+    })
+  );
+
+  // نسخ الإيميل
+  document.querySelectorAll('[data-copy]').forEach(b =>
+    b.addEventListener('click', async e => {
+      e.preventDefault(); e.stopPropagation();
+      try { await navigator.clipboard.writeText(b.dataset.copy); toast('Email copied to clipboard.'); }
+      catch { toast('Copy failed — email: hassanashrafaboelgood@gmail.com'); }
+    })
+  );
+
+  // الفورم → يركّب إيميل جاهز ويفتح تطبيق البريد (بدون أي سيرفر)
+  const form = document.getElementById('cform');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const f = new FormData(form);
+    const name = (f.get('name') || '').trim();
+    const email = (f.get('email') || '').trim();
+    const msg = (f.get('message') || '').trim();
+    if (!name || !email || !msg) { toast('Please fill in your name, email, and message.'); return; }
+    if (!/\S+@\S+\.\S+/.test(email)) { toast('Please enter a valid email address.'); return; }
+    const subject = encodeURIComponent('Portfolio contact — ' + name);
+    const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + msg);
+    window.location.href = 'mailto:hassanashrafaboelgood@gmail.com?subject=' + subject + '&body=' + body;
+    toast('Opening your email app…');
+  });
+});
+</script>
+</body>
+</html>
